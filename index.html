@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <!-- 防止屏幕进行伸缩 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      background: #F8F8F8;
+    }
+    .bg {
+      background: #ffffff;
+    }
+    .sq-dynamic{
+      padding: 12px 15px 0 15px;
+      margin-bottom: 8px;
+    }
+    .dynamic-head {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .dynamic-head-l {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      padding-right: 15px;
+    }
+
+    .dynamic-head-l img {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .dynamic-head-r h2 {
+      font: 700 16px/23px PingFangSC;
+      color: #333333;
+    }
+    .dynamic-head-r p {
+      font: 12px/17px PingFangSC;
+      color: #999999;
+    }
+    .photo {
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+    }
+    .con-font {
+      padding:8px 0 8px 0;
+      font: 15px/21px PingFangSC;
+      color: #444444;
+    }
+    .photo img {
+      width: 32.15%;
+      height: 114px;
+      float: left;
+      padding: 0 5px 5px 0;
+    }
+    .photo img:nth-child(3n+3) {
+      padding-right: 0;
+    }
+    .con-footer {
+      position: relative;
+      height: 45px;
+      margin: 5px 0 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .con-footer::after {
+      content: " ";
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-bottom: 1px solid #EEEEEE;
+      -webkit-transform: scaleY(.5);
+      transform: scaleY(.5);
+    }
+    .dy-share {
+      margin-left:36px;
+    }
+    .dy-zan {
+      margin-right:36px;
+    }
+    .dy-share img {
+      width: 14px;
+      height: 14px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    .dy-share span {
+      display: inline-block;
+      font: 14px/45px PingFangSC;
+      color: #999999;
+    }
+    .dy-msg img {
+      width: 18px;
+      height: 14px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    .dy-msg span {
+      display: inline-block;
+      font: 14px/45px PingFangSC;
+      color: #999999;
+    }
+    .dy-zan span {
+      display: inline-block;
+      font: 14px/45px PingFangSC;
+      color: #999999;
+    }
+    .dy-zan img {
+      width: 15px;
+      height: 14px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    /*电影*/
+    .mov {
+      width: 100%;
+      height: 161px;
+      background: gray;
+      font: 26px/161px PingFangSC;
+    }
+    .active-user{
+      padding: 12px 15px 0 15px;
+      margin-bottom: 8px;
+    }
+    .active-head{
+      display: flex;
+      justify-content: space-between;
+    }
+    .active-head-l{
+      font: 12px/17px PingFangSC;
+      color: #F5A623;
+    }
+    .active-head-r{
+      font: 12px/17px PingFangSC;
+      color: #999999;
+    }
+    .active-con{
+      width: 100%;
+      position: relative;
+    }
+    .box-container{
+      display: flex;
+      justify-content: space-between;
+      width: 94%;
+      padding: 13px 0 15px 0;
+    }
+    .box-item{
+      text-align: center;
+    }
+    .box-item .item-head{
+      height: 50px;
+    }
+    .box-item .item-head img{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .box-item .item-name{
+      margin-top: 5px;
+      color:#999999;
+      font:12px PingFangSC;
+    }
+    .box-item .item-fans{
+      font: 12px/18px PingFangSC;
+      color: #333333;
+    }
+    .box-item .item-fans .fans-num{
+      margin-right: 6px;
+    }
+    .box-item .item-care{
+      width: 70px;
+      height: 28px;
+      margin-top: 6px;
+      display: inline-block;
+      text-align: center;
+      border-radius: 14px;
+      font: 15px/28px PingFangSC;
+      color: #FFFFFF;
+      background: #FF7272;
+    }
+    .box-item .change{
+      position: absolute;
+      right: 0;
+      top: 70px;
+      width: 12px;
+      height: 10px;
+    }
+    .care-help{
+      /*padding: 0 15px;*/
+    }
+    .care-head{
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      height: 33px;
+      font:14px/33px PingFangSC;
+      color: #999999;
+      padding: 0 15px;
+    }
+    .care-head::after{
+      content:"";
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      border-bottom: 1px solid #E7E7E7;
+      -webkit-transform: scaleY(.5);
+      transform: scaleY(.5);
+    }
+    .care-head-l img{
+      width: 14px;
+      height: 13px;
+      margin-right: 10px;
+    }
+    .care-head-r img{
+      width: 10px;
+      height: 10px;
+      margin-top: 11px;
+    }
+    .con-font .show-msg{
+      height: 21px;
+      font: 14px/21px PingFangSC;
+      color: #72BAFE;
+    }
+    .con-font .show-msg img{
+      width: 18px;
+      height: 18px;
+      vertical-align: top;
+      margin-right: 6px;
+    }
+    .map{
+      height: 22px;
+      margin:10px 0 15px 0;
+      font: 12px/22px PingFangSC;
+      color: #576B95;
+    }
+    .map img{
+      width: 20px;
+      height: 22px;
+      margin-right: 3px;
+      vertical-align: top;
+    }
+    .dy-msg2{
+      margin-right: 36px;
+    }
+    .dy-msg2 img{
+      width: 18px;
+      height: 14px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    .dy-msg2 span{
+      display: inline-block;
+      font: 14px/45px PingFangSC;
+      color: #999999;
+    }
+    .look{
+      height: 52px;
+      text-align: center;
+      font: 10px/52px PingFangSC;
+      color: #CCCCCC;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="bg">
+    <div class="sq-dynamic">
+      <div class="dynamic-head">
+        <div class="dynamic-head-l"><img src="image/head.png" alt=""></div>
+        <div class="dynamic-head-r">
+          <h2>Rena</h2>
+          <p>2-23</p>
+        </div>
+      </div>
+      <div class="dynamic-content">
+        <div class="con-font">即使相隔光年，我们终能相遇。即使相隔光年，我们终能相遇。即使相隔光年，我们终能相遇。即使相隔光年，我们终能相遇。</div>
+        <div class="photo">
+          <img src="image/pada.png" alt="">
+          <img src="image/pada.png" alt="">
+          <img src="image/pada.png" alt="">
+          <img src="image/pada.png" alt="">
+          <!--<img src="../assets/image/pada.png" alt="">-->
+          <!--<img src="../assets/image/pada.png" alt="">-->
+          <!--<img src="../assets/image/pada.png" alt="">-->
+          <!--<img src="../assets/image/pada.png" alt="">-->
+          <!--<img src="../assets/image/pada.png" alt="">-->
+        </div>
+        <div class="con-footer">
+          <div class="dy-share"><img src="image/resend.png" alt=""><span>0</span></div>
+          <div class="dy-msg"><img src="image/msg.png" alt=""><span>34</span></div>
+          <div class="dy-zan"><img src="image/heart2x.png" alt=""><span>34</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg">
+    <div class="sq-dynamic">
+      <div class="dynamic-head">
+        <div class="dynamic-head-l"><img src="image/cm.png" alt=""></div>
+        <div class="dynamic-head-r">
+          <h2>Rena</h2>
+          <p>2-23</p>
+        </div>
+      </div>
+      <div class="dynamic-content">
+        <div class="con-font">即使相隔光年，我们终能相遇。</div>
+        <div class="photo">
+          <div class="mov">我是电影模块</div>
+          <!--<div class="mov">-->
+          <!--<video src="../assets/image/video.mp4"></video>-->
+          <!--</div>-->
+        </div>
+        <div class="con-footer">
+          <div class="dy-share"><img src="image/resend.png" alt=""><span>0</span></div>
+          <div class="dy-msg"><img src="image/msg.png" alt=""><span>34</span></div>
+          <div class="dy-zan"><img src="image/heart2x.png" alt=""><span>34</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--活跃用户-->
+  <div class="bg">
+    <div class="active-user">
+      <div class="active-head">
+        <div class="active-head-l">这些用户最近很活跃哦~</div>
+        <div class="active-head-r">关闭</div>
+      </div>
+      <div class="active-con">
+        <div class="box-container">
+          <div class="box-item">
+            <div class="item-head"><img src="image/cm.png" alt=""></div>
+            <div class="item-name">萌得萌到</div>
+            <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
+            <div class="item-care">已关注</div>
+          </div>
+          <div class="box-item">
+            <div class="item-head"><img src="image/cm.png" alt=""></div>
+            <div class="item-name">萌得萌到</div>
+            <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
+            <div class="item-care">已关注</div>
+          </div>
+          <div class="box-item">
+            <div class="item-head"><img src="image/cm.png" alt=""></div>
+            <div class="item-name">萌得萌到</div>
+            <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
+            <div class="item-care">已关注</div>
+            <img src="image/rr.png" alt="" class="change">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--关注的求助-->
+  <div class="bg">
+    <div class="care-help">
+      <div class="care-head">
+        <div class="care-head-l"><img src="image/heart2x.png" alt="">关注的求助</div>
+        <div class="care-head-r"><img src="image/down.png" alt=""></div>
+      </div>
+      <div class="sq-dynamic">
+        <div class="dynamic-head">
+          <div class="dynamic-head-l"><img src="image/head.png" alt=""></div>
+          <div class="dynamic-head-r">
+            <h2>Rena</h2>
+            <p>2-23</p>
+          </div>
+        </div>
+        <div class="dynamic-content">
+          <div class="con-font">
+            <div class="show-msg"><img src="image/foot2x.png" alt="">已走失<span>23</span>天</div>
+            王阿姨 女 72岁
+          </div>
+          <div class="photo">
+            <img src="image/pada.png" alt="">
+            <img src="image/pada.png" alt="">
+          </div>
+          <div class="map"><img src="image/map.png" alt="">上海市闵行区春申城</div>
+          <div class="con-footer">
+            <div class="dy-share"><img src="image/resend.png" alt=""><span>0</span></div>
+            <div class="dy-msg2"><img src="image/msg.png" alt=""><span>34</span></div>
+            <!--<div class="dy-zan"><img src="../assets/image/heart2x.png" alt=""><span>34</span></div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="look">被你看光光啦~</div>
+</div>
+</body>
+</html>
