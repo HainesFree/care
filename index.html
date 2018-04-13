@@ -9,7 +9,6 @@
     *{
       margin: 0;
       padding: 0;
-
     }
     body{
       font-family: Helvetica,Verdana, Arial,sans-serif;
@@ -20,6 +19,66 @@
       top: 0;
       width: 100%;
       background: #F8F8F8;
+    }
+    /*未关注部分*/
+    .no-care-head{
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      color: #999999;
+    }
+    .no-care-con{
+      padding: 0 15px;
+    }
+    .no-care-title{
+      height: 28px;
+      line-height: 28px;
+      font-size: 18px;
+      color: #333333;
+    }
+    .no-care-container{
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .no-care-item{
+      margin-top: 15px;
+      width: 32%;
+      text-align: center;
+      float: left;
+      margin-right: 1.2%;
+    }
+    .no-care-item .item-head{
+      height: 50px;
+    }
+    .no-care-item .item-head img{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .no-care-item .item-name{
+      margin-top: 5px;
+      color:#999999;
+      font-size: 12px;
+    }
+    .no-care-item .item-fans{
+      font-size: 12px;
+      line-height: 18px;
+      color: #333333;
+    }
+    .no-care-item .item-fans .fans-num{
+      margin-right: 6px;
+    }
+    .no-care-item  .item-care{
+      width: 70px;
+      height: 28px;
+      margin-top: 6px;
+      display: inline-block;
+      text-align: center;
+      border-radius: 14px;
+      font-size: 15px;
+      line-height: 28px;
+      color: #FFFFFF;
+      background: #FF7272;
     }
     .bg {
       background: #ffffff;
@@ -164,17 +223,26 @@
       color: #999999;
     }
     .active-con{
+      box-sizing: border-box;
       width: 100%;
       position: relative;
     }
     .box-container{
-      display: flex;
-      justify-content: space-between;
-      width: 94%;
+      box-sizing: border-box;
+      width: 100%;
       padding: 13px 0 15px 0;
+      display: -webkit-box;
+      overflow-x: auto;
+      /*适应苹果*/
+      -webkit-overflow-scrolling: touch;
+    }
+    .box-container::-webkit-scrollbar {
+      display: none;
     }
     .box-item{
+      width: 30%;
       text-align: center;
+      margin-right: 10px;
     }
     .box-item .item-head{
       height: 50px;
@@ -209,12 +277,13 @@
       color: #FFFFFF;
       background: #FF7272;
     }
-    .box-item .change{
+    .box-container .change{
       position: absolute;
       right: 0;
       top: 70px;
       width: 12px;
       height: 10px;
+      opacity: 0.8;
     }
     .care-head{
       position: relative;
@@ -224,7 +293,7 @@
       font-size: 14px;
       line-height: 33px;
       color: #999999;
-      padding: 0 15px;
+      margin: 0 15px;
     }
     .care-head::after{
       content:"";
@@ -294,10 +363,10 @@
       color: #CCCCCC;
     }
   </style>
-  <link rel="stylesheet" href="../../../../Haines/workspace/shop/iworld-shop/res/src/mob/assets/styles/gb.scss">
 </head>
 <body>
 <div class="container">
+  <!--关注的动态-->
   <div class="bg">
     <div class="sq-dynamic">
       <div class="dynamic-head">
@@ -314,11 +383,6 @@
           <img src="image/pada.png" alt="">
           <img src="image/pada.png" alt="">
           <img src="image/pada.png" alt="">
-          <!--<img src="../assets/image/pada.png" alt="">-->
-          <!--<img src="../assets/image/pada.png" alt="">-->
-          <!--<img src="../assets/image/pada.png" alt="">-->
-          <!--<img src="../assets/image/pada.png" alt="">-->
-          <!--<img src="../assets/image/pada.png" alt="">-->
         </div>
         <div class="con-footer">
           <div class="dy-share"><img src="image/resend.png" alt=""><span>0</span></div>
@@ -337,13 +401,11 @@
           <p>2-23</p>
         </div>
       </div>
+      <!--电影展示模块-->
       <div class="dynamic-content">
         <div class="con-font">即使相隔光年，我们终能相遇。</div>
         <div class="photo">
           <div class="mov">我是电影模块</div>
-          <!--<div class="mov">-->
-          <!--<video src="../assets/image/video.mp4"></video>-->
-          <!--</div>-->
         </div>
         <div class="con-footer">
           <div class="dy-share"><img src="image/resend.png" alt=""><span>0</span></div>
@@ -353,17 +415,24 @@
       </div>
     </div>
   </div>
-  <!--活跃用户-->
-  <div class="bg">
+  <!--推荐的用户--可关闭-->
+  <div class="bg" v-if="isUser">
     <div class="active-user">
       <div class="active-head">
         <div class="active-head-l">这些用户最近很活跃哦~</div>
-        <div class="active-head-r">关闭</div>
+        <div class="active-head-r" @click="shut">关闭</div>
       </div>
+      <!--左右滑动区域-->
       <div class="active-con">
         <div class="box-container">
           <div class="box-item">
-            <div class="item-head"><img src="image/cm.png" alt=""></div>
+            <div class="item-head"><img src="image/pada.png" alt=""></div>
+            <div class="item-name">萌得萌到</div>
+            <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
+            <div class="item-care">已关注</div>
+          </div>
+          <div class="box-item">
+            <div class="item-head"><img src="image/cat.png" alt=""></div>
             <div class="item-name">萌得萌到</div>
             <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
             <div class="item-care">已关注</div>
@@ -375,12 +444,24 @@
             <div class="item-care">已关注</div>
           </div>
           <div class="box-item">
-            <div class="item-head"><img src="image/cm.png" alt=""></div>
+            <div class="item-head"><img src="image/heart.png" alt=""></div>
             <div class="item-name">萌得萌到</div>
             <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
             <div class="item-care">已关注</div>
-            <img src="image/rr.png" alt="" class="change">
           </div>
+          <div class="box-item">
+            <div class="item-head"><img src="image/pada.png" alt=""></div>
+            <div class="item-name">萌得萌到</div>
+            <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
+            <div class="item-care">已关注</div>
+          </div>
+          <div class="box-item">
+            <div class="item-head"><img src="image/cat.png" alt=""></div>
+            <div class="item-name">萌得萌到</div>
+            <div class="item-fans"><span class="fans-num">123粉丝</span><span>234喜欢</span></div>
+            <div class="item-care">已关注</div>
+          </div>
+          <img src="image/rr.png" alt="" class="change">
         </div>
       </div>
     </div>
@@ -413,7 +494,6 @@
           <div class="con-footer">
             <div class="dy-share"><img src="image/resend.png" alt=""><span>0</span></div>
             <div class="dy-msg2"><img src="image/msg.png" alt=""><span>34</span></div>
-            <!--<div class="dy-zan"><img src="../assets/image/heart2x.png" alt=""><span>34</span></div>-->
           </div>
         </div>
       </div>
